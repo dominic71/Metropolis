@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neural Character Engine</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>Neural Character Engine</h1>
+    <p>Create living NPC minds by orchestrating the dialogue between cognitive regions.</p>
+  </header>
+  <main class="app">
+    <section class="controls" aria-label="Character configuration">
+      <h2>Character Profile</h2>
+      <div class="control-grid">
+        <label>Age
+          <input type="range" id="age" min="8" max="80" value="28" />
+          <span class="value" data-for="age">28</span>
+        </label>
+        <label>Gender
+          <select id="gender">
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+            <option value="nonbinary">Non-binary</option>
+            <option value="unspecified" selected>Unspecified</option>
+          </select>
+        </label>
+        <label>IQ
+          <input type="range" id="iq" min="70" max="160" value="110" />
+          <span class="value" data-for="iq">110</span>
+        </label>
+        <label>Profession / Background
+          <input type="text" id="background" placeholder="Ranger, scholar, healer..." />
+        </label>
+      </div>
+      <div class="personality">
+        <h3>Personality (Big Five)</h3>
+        <div class="trait" data-trait="openness">
+          <label>Openness
+            <input type="range" min="0" max="100" value="65" />
+          </label>
+          <span class="value">65</span>
+        </div>
+        <div class="trait" data-trait="conscientiousness">
+          <label>Conscientiousness
+            <input type="range" min="0" max="100" value="55" />
+          </label>
+          <span class="value">55</span>
+        </div>
+        <div class="trait" data-trait="extraversion">
+          <label>Extraversion
+            <input type="range" min="0" max="100" value="50" />
+          </label>
+          <span class="value">50</span>
+        </div>
+        <div class="trait" data-trait="agreeableness">
+          <label>Agreeableness
+            <input type="range" min="0" max="100" value="60" />
+          </label>
+          <span class="value">60</span>
+        </div>
+        <div class="trait" data-trait="neuroticism">
+          <label>Neuroticism
+            <input type="range" min="0" max="100" value="40" />
+          </label>
+          <span class="value">40</span>
+        </div>
+      </div>
+      <div class="dial-controls">
+        <label>Outlook
+          <select id="outlook">
+            <option value="optimistic" selected>Optimistic</option>
+            <option value="balanced">Balanced</option>
+            <option value="pessimistic">Pessimistic</option>
+          </select>
+        </label>
+        <label>Risk Approach
+          <select id="risk">
+            <option value="cautious">Cautious</option>
+            <option value="balanced" selected>Balanced</option>
+            <option value="bold">Risk-taking</option>
+          </select>
+        </label>
+        <label>Emotional Style
+          <select id="emotionStyle">
+            <option value="steady" selected>Steady</option>
+            <option value="expressive">Expressive</option>
+            <option value="guarded">Guarded</option>
+          </select>
+        </label>
+      </div>
+      <div class="profile-tools">
+        <button type="button" id="randomizeProfile" class="ghost">Randomize Persona</button>
+        <button type="button" id="exportProfile" class="ghost secondary">Export Profile JSON</button>
+      </div>
+      <p class="profile-tip">Use exports to reuse NPC minds across stories or keep randomising until inspiration strikes.</p>
+    </section>
+    <section class="simulation" aria-label="Simulation output">
+      <div class="scenario-panel">
+        <h2>Scenario</h2>
+        <textarea id="scenarioInput" rows="3" placeholder="Describe a situation for the character to process..."></textarea>
+        <div class="scenario-actions">
+          <button id="runSimulation">Run Neural Simulation</button>
+          <div class="status" role="status" aria-live="polite"></div>
+        </div>
+      </div>
+      <section class="brain-interface" aria-label="Neural dialogue">
+        <div class="brain-topology">
+          <svg id="flowchartCanvas" aria-hidden="true" focusable="false"></svg>
+          <div class="brain-grid">
+            <div class="region-card" data-region="visual">
+              <header>
+                <h3>Visual Cortex</h3>
+                <span class="persona">Perceptive Analyst</span>
+              </header>
+            <div class="activity-bar"><div></div></div>
+            <p class="region-text">Awaiting sensory input.</p>
+          </div>
+          <div class="region-card" data-region="auditory">
+            <header>
+              <h3>Auditory Cortex</h3>
+              <span class="persona">Acoustic Interpreter</span>
+            </header>
+            <div class="activity-bar"><div></div></div>
+            <p class="region-text">Listening for cues.</p>
+          </div>
+          <div class="region-card" data-region="anterior">
+            <header>
+              <h3>Anterior Cingulate</h3>
+              <span class="persona">Focus Mediator</span>
+            </header>
+            <div class="activity-bar"><div></div></div>
+            <p class="region-text">Scanning priorities.</p>
+          </div>
+          <div class="region-card" data-region="amygdala">
+            <header>
+              <h3>Amygdala</h3>
+              <span class="persona">Emotional Sentinel</span>
+            </header>
+            <div class="activity-bar"><div></div></div>
+            <p class="region-text">Ready to escalate emotions.</p>
+          </div>
+          <div class="region-card" data-region="limbic">
+            <header>
+              <h3>Limbic System</h3>
+              <span class="persona">Mood Conductor</span>
+            </header>
+            <div class="activity-bar"><div></div></div>
+            <p class="region-text">Awaiting emotional tone.</p>
+          </div>
+          <div class="region-card" data-region="hippocampus">
+            <header>
+              <h3>Hippocampus</h3>
+              <span class="persona">Memory Curator</span>
+            </header>
+            <div class="activity-bar"><div></div></div>
+            <p class="region-text">Preparing recollections.</p>
+          </div>
+          <div class="region-card" data-region="motor">
+            <header>
+              <h3>Motor Cortex</h3>
+              <span class="persona">Action Strategist</span>
+            </header>
+            <div class="activity-bar"><div></div></div>
+            <p class="region-text">Waiting on directives.</p>
+          </div>
+          <div class="region-card" data-region="prefrontal">
+            <header>
+              <h3>Prefrontal Cortex</h3>
+              <span class="persona">Executive Synthesizer</span>
+            </header>
+            <div class="activity-bar"><div></div></div>
+            <p class="region-text">Ready to integrate the whole picture.</p>
+          </div>
+          </div>
+        </div>
+        <div class="stream">
+          <h2>Consciousness Stream</h2>
+          <div id="consciousnessStream" class="stream-log" aria-live="polite"></div>
+        </div>
+      </section>
+      <section class="analytics" aria-label="Analysis and comparison">
+        <div class="compare-box">
+          <h2>Claude 4 (baseline) Response</h2>
+          <p id="claudeResponse">Run the simulation to compare a traditional single-voice response.</p>
+        </div>
+        <div class="graph-panel">
+          <h2>Neural Activity Timeline</h2>
+          <canvas id="activityCanvas" width="700" height="260" role="img" aria-label="Activity timeline for each brain region"></canvas>
+          <div id="timelineEvents" class="timeline-events"></div>
+        </div>
+      </section>
+    </section>
+  </main>
+  <footer class="app-footer">
+    <p>Craft believable NPC cognition by watching every region negotiate the next action.</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
